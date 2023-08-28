@@ -8,9 +8,9 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="2145cba0-c981-4bf2-87e7-f84f15938360"
+    Name="TEC-Server-Maintenance"
     Publisher="CN=sreddy"
-    Version="1.0.0.0" />
+    Version="1.0.4.0" />
 
   <mp:PhoneIdentity PhoneProductId="2145cba0-c981-4bf2-87e7-f84f15938360" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
