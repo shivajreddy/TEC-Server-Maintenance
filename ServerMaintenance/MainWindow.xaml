@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="ServerMaintenance.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ServerMaintenance"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Server Maintenance"
+    >
+    <Grid Background="#1e1e2e">
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="#cdd6f4"/>
+                <Setter Property="Margin" Value="0,10"/>
+            </Style>
+            <Style x:Key="H1" TargetType="TextBlock">
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="22"></Setter>
+            </Style>
+            <Style x:Key="H2" TargetType="TextBlock">
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="20"></Setter>
+            </Style>
+            <Style x:Key="H3" TargetType="TextBlock">
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="FontSize" Value="18"></Setter>
+            </Style>
+
+
+            <Style TargetType="StackPanel">
+                <Setter Property="Padding" Value="4"/>
+                <Setter Property="Margin" Value="0, 10"/>
+                <Setter Property="BorderBrush" Value="#6c7086"/>
+            </Style>
+
+            <Style x:Name="RoundedStackPanel"  TargetType="StackPanel">
+                <Setter Property="Padding" Value="4"/>
+                <Setter Property="Margin" Value="0, 10"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="#6c7086"/>
+                <Setter Property="CornerRadius" Value="10"/>
+            </Style>
+        </Grid.Resources>
+
+
+
+        <StackPanel VerticalAlignment="Top" Orientation="Vertical" Margin="16">
+
+            <TextBlock HorizontalAlignment="Center" Margin="0, 20"
+                       Text="TEC SERVER MAINTENANCE" Foreground="#fab387"
+                       FontSize="24" CharacterSpacing="30" FontWeight="Bold" />
+
+            <Button x:Name="PickFolderButton" Content="Choose Root Folder"
+                    Click="PickFolderButton_Click" Margin="0,0,0,10"
+                    HorizontalAlignment="Center" />
+
+            <!-- Show result -->
+            <StackPanel x:Name="FileSearchContainer" Visibility="Collapsed" Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Style="{StaticResource RoundedStackPanel}" Padding="14">
+                    <TextBlock Text="Root Path:" Style="{StaticResource H2}" Margin="0,0,10,0"  />
+                    <TextBlock x:Name="FilePathTextBlock" Style="{StaticResource H2}" Foreground="#b4befe" />
+                </StackPanel>
+
+                <!--! Choose your file types-->
+                <StackPanel Orientation="Vertical" Style="{StaticResource RoundedStackPanel}" Padding="10" >
+                    <TextBlock Text="Pick the file type's you want to search for :" TextAlignment="Center" Style="{StaticResource H3}"/>
+                    <ItemsControl ItemsSource="{x:Bind FileTypes}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" Spacing="50"  HorizontalAlignment="Center" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding Name}"
+                                              IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                                              Checked="CheckBoxIsToggled"
+                                              Unchecked="CheckBoxIsToggled"
+                                              />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Button x:Name="FindFilesButton" HorizontalAlignment="Center" IsEnabled="False"
+                       Click="FindFilesButton_Click"
+                       Content="Find Files"/>
+                </StackPanel>
+
+
+                <!-- ! Search Results -->
+                <StackPanel x:Name="FilesResultStackPanel" Visibility="Collapsed" Style="{StaticResource RoundedStackPanel}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="50" Padding="0" Margin="0">
+                        <StackPanel Orientation="Horizontal" Padding="0" Margin="0">
+                            <TextBlock Text="Total files found:"  Style="{StaticResource H3}"/>
+                            <TextBlock x:Name="TotalFilesCountTextBlock" Padding="5,0" Style="{StaticResource H3}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Padding="0" Margin="0">
+                            <TextBlock Text="Total size of all files:" Style="{StaticResource H3}"/>
+                            <TextBlock x:Name="TotalFilesSizeTextBlock" Padding="5,0" Style="{StaticResource H3}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <TextBlock Text="Search Result: "/>
+                        <ListBox x:Name="AllFileNamesListBox"  Height="164"
+                                 BorderThickness="1" BorderBrush="#6c7086" 
+                                 CornerRadius="10" />
+                        <Button Content="Delete All Files" Click="DeleteFilesButton_Click" Margin="0,10,0,10" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </StackPanel>
+
+                <!--<StackPanel x:Name="DeletedFilesResultStackPanel" Visibility="Collapsed" Style="{StaticResource RoundedStackPanel}">
+                    <StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="Total files deleted: "/>
+                            <TextBlock x:Name="TotalFilesDeletedTextBlock"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="Total size removed: "/>
+                            <TextBlock x:Name="TotalSizeRemovedTextBlock"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>-->
+
+
+            </StackPanel>
+        </StackPanel>
+
+
+    </Grid>
+</Window>
